@@ -12,8 +12,8 @@ const legend = svg.append("g")
 const requestMapData = async function() {
 
     // load data
-    const world = await d3.json("countries-110m.json");
-    const artData = await d3.csv("interpol_country_data.csv"); // no autotype since we want country codes to be read in as strings
+    const world = await d3.json("../countries-110m.json");
+    const artData = await d3.csv("../interpol_country_data.csv"); // no autotype since we want country codes to be read in as strings
     artData.forEach( (d, i) => {
         d.total = Number(d.total); // now convert totals to numeric data
     });
