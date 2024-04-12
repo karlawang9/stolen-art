@@ -1,0 +1,182 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    margin: 0 auto; 
+}
+
+
+/* -------------------------------------- LAYOUT -------------------------------------- */
+.flex-row {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+.vertical-align {
+    align-items: center;
+}
+.horizontal-align {
+    text-align: center;
+}
+
+img, .side {
+    width: 100%;
+    max-width: 512px;
+}
+
+.summary-side {
+    width: 80%;
+    margin: 5em 2em;
+    padding: 0 1em;
+    border-left: 5px solid #F8C82D;
+    font-size: 0.9em;
+}
+
+
+/* -------------------------------------- TEXT -------------------------------------- */
+.text-container {
+    max-width: 800px;
+    margin: 0 auto; 
+    padding: 0 1em;
+}
+
+h1 {
+    font-size: 2.5em;
+}
+
+h4, figcaption {
+    font-weight: 100;
+    letter-spacing: 0.3px;
+    color: rgb(138, 138, 138);
+}
+
+h2 {
+    font-size: 2em;
+}
+
+h3 {
+    letter-spacing: 1px;
+    font-size: 1.3em;
+}
+
+p, blockquote, .summary {
+    line-height: 1.5;
+    font-size: 1.2em;
+    color: rgb(66, 66, 66);
+}
+
+blockquote {
+    width: 40%;
+    margin: 2em auto;
+    text-align: center;
+}
+blockquote p {
+    font-size: 1.1em;
+}
+
+.summary {
+    width: 80%;
+    margin: 2em auto;
+    padding: 0 1em;
+    border-left: 5px solid #F8C82D;
+}
+.summary p {
+    font-size: 0.9em;
+}
+.indent {
+    margin-left: 3em;
+}
+
+p a {
+    color: #2C358B;
+    text-decoration: none;
+}
+p a:hover {
+    border-bottom: 4px solid #F8C82D;
+}
+
+.highlight-yellow {
+    background-color: #efd67e;
+}
+.highlight-blue {
+    background-color: #abb2fc;
+}
+
+.bold {
+    font-weight: bold;
+}
+.italic {
+    font-style: italic;
+}
+.callout {
+    letter-spacing: 1px;
+    font-size: 1.2em;
+}
+
+
+/* -------------------------------------- HEADER -------------------------------------- */
+header p {
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+.logo {
+    width: 40px;
+    height: auto;
+    object-fit: contain;
+}
+
+.name a{
+    color: black;
+}
+.name a:hover {
+    border-bottom: none;
+}
+
+
+/* -------------------------------------- FOOTER -------------------------------------- */
+footer p{
+    background-color: #F8C82D;
+    margin: 0 auto;
+    padding: 2.5em 0;
+    text-align: center;
+}
+
+footer a {
+    font-weight: bold;
+}
+
+
+/* -------------------------------------- MAP -------------------------------------- */
+.country {
+    fill: lightgrey;
+}
+
+.outline {
+    fill: none;
+    stroke: black;
+    stroke-width: 1px;
+}
+
+.tooltip {
+    pointer-events: none;
+}
+
+
+/* -------------------------------------- TABLE -------------------------------------- */
+table {
+    max-width: 200px;
+    width: 100%;
+    border-collapse: collapse; 
+}
+
+#table {
+    margin-top: 5em;
+}
+
+tr {
+    border-bottom: 1px solid black;
+}
+
+td {
+    padding: 0.2em;
+}

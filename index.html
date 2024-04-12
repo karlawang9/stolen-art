@@ -1,0 +1,377 @@
+<!DOCTYPE html> 
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>The Art of Stolen Art</title>
+
+    <link href="styles/site.css" type="text/css" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="images/cdj-logo.png">
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/topojson.v3.min.js"></script>
+</head>
+<body>
+    
+    <header class="flex-row vertical-align">
+        <div>
+            <a href="https://www.cornelldatajournal.org/"><img src="images/cdj-logo.png" alt="CDJ logo" class="logo" width="1464" height="1600"></a>
+        </div>
+        <div>
+            <p class="name"><a href="https://www.cornelldatajournal.org/">cdj</a></p>
+        </div>
+    </header>
+
+
+    <div class="text-container">
+        <h1>The Art of Stolen Art</h1>
+        <h4>
+            December 16, 2023 <br/>
+            <span class="italic">by Annie Chen, Karla Wang, Nikhil Chinchalkar, Daniel Lines, 
+            Lydia Wang, Sylvia Han, Stuti Gupta</span>
+        </h4>
+    </div>
+
+
+    <div class="text-container">
+        <p>
+            As the <a href="https://academic.oup.com/book/6698/chapter/150762225">third largest criminal enterprise</a>, 
+            art theft is not only lucrative and pervasive, but also culturally debilitating. In fact, art crime has grown 
+            by 10% annually, with only 5-10% of the 50,000-100,000 yearly stolen artworks being successfully recovered. 
+            This increase in art crime can be tied to the increasing popularity of using stolen artwork as currency in 
+            other illegal activities, such as drug transactions. 
+        </p>
+        <p>
+            Beyond museum art thefts, artworks can also be stolen from private homes and places of worship. These stolen 
+            artworks include a <a href="https://www.interpol.int/en/Crimes/Cultural-heritage-crime/The-issues-
+            cultural-property">wide variety of items</a> ranging from paintings and statues to jewelry and musical instruments. 
+            To better understand the story behind art theft, we explored data on stolen artwork to identify trends and relationships 
+            between their various attributes, including geographical location, artwork material, and more. In doing so, we answer 
+            the following research questions: 
+        </p>
+        <blockquote>
+            <p>
+            Are there <span class="highlight-yellow bold">patterns or trends</span> in art theft globally and in the US?
+            </p>
+            <p>
+            What is the <span class="highlight-blue bold">context</span> around these stolen artworks?
+        </p>
+        </blockquote>
+        <p>
+            These questions guide our analysis throughout the remainder of this article to help uncover a clearer picture of 
+            the art theft industry.
+        </p>
+    </div>
+
+
+    <div class="text-container">
+        <h2>The data</h2>
+        <p>
+            For our data, we sourced our information from two main data sources: the FBI’s <a href="https://artcrimes.fbi.gov/nsaf-view?
+            searchText=&crimeCategory=">National Stolen Art File</a> and the INTERPOL’s <a href="https://www.interpol.int/
+            Crimes/Cultural-heritage-crime/Stolen-Works-of-Art-Database">Stolen Works of Art Database</a>.
+        </p>
+        <p>
+            The FBI’s National Stolen Art File is a publicly available online listing of culturally-significant stolen artwork. 
+            Our team web-scraped the online database using the <a href="https://pypi.org/project/requests/">Requests</a> and 
+            <a href="https://pypi.org/project/beautifulsoup4/">BeautifulSoup</a> Python libraries. Through this, we were able 
+            to collect data on over 4,000 stolen artworks from the US Federal Bureau of Investigation’s database. This data 
+            consists of information on the artwork’s maker/artist, materials, measurements, estimated time period of production, and more.
+        </p>
+        <p>
+            Additionally, we used the INTERPOL’s Stolen Works of Art Database to further supplement our data. This database is not 
+            publicly available and requires an approved account. As such, our team did not receive permission to web scrape the data 
+            or directly export the data. Instead, our team manually collected and aggregated data of summary statistics to gain insights 
+            on the database’s 52,000 items.
+        </p>
+    </div>
+    
+
+    <div class="text-container">
+        <h2>A global comparison</h2>
+        <p>
+            Using data from INTERPOL, we can compare various aspects of art theft around the world, identifying the most pertinent global trends.
+        </p>
+        <h3>THEFT VOLUME</h3>
+        <p>
+            Comparing the number of stolen artworks across countries, we see that most stolen artworks are reported 
+            in North American countries like the US and Canada, in many South American countries, in European countries 
+            including Russia and parts of the Middle East, and in China. In contrast, there are a lack of stolen artworks 
+            reported in African countries, potentially due to a weaker monitoring and reporting system available. 
+        </p>
+        <div class="summary">
+            <p>
+                <span class="highlight-yellow callout">INSIGHT 1</span><br/>
+                Majority of art theft is concentrated in <span class="bold">European and Middle Eastern countries.</span> 
+                France, Italy, and Turkey lead by far.
+            </p>
+            <p>
+                <span class="highlight-yellow callout">INSIGHT 2</span><br/>
+                <span class="bold">African countries</span> have much less reported art theft, likely due to weaker monitoring and 
+                reporting systems available.
+            </p>
+        </div>
+    </div>
+    <div class="flex-row">
+        <svg id="choropleth" height="580" width="990">
+
+        </svg>
+
+        <div id="table">
+            <h3>Top Art Theft Countries</h3>
+            <table>
+
+            </table>
+        </div>
+    </div>
+    <div class="text-container">
+        <p>
+            However, the vast majority of stolen artworks are concentrated in a few European and Middle Eastern countries. 
+            In Europe, France and Italy lead by far in the global arena of art theft, with 8,133 and 7,721 reported thefts 
+            respectively at the time of data collection. Turkey comes in third place with 3,034, an abrupt decrease in 
+            comparison to the European art giants. When people think of art in its traditional or classical sense, French 
+            and Italian paintings or sculptures often come to mind first. 
+        </p>
+        <p>
+            French and Italian museums are home to some of the most valuable and famous cultural artworks. Their high value 
+            makes them a prime target for theft as the global underground black market of art objects and antiques expands. 
+            <a href="https://www.nytimes.com/2010/08/27/world/europe/27iht-arttheft.html">French museums</a> often fall 
+            victim to art theft, with an average of 35 museum thefts occurring annually over the last 15 years. These art 
+            heists are often the orchestrated work of connected groups of criminals and gangsters who boast deep knowledge 
+            about security systems and seasonal museum trends, allowing them to pull off perfect, traceless thefts. Italy, 
+            which is also known as an art theft playground, has assembled <a href="https://www.npr.org/sections/parallels/
+            2017/01/11/508031006/for-italys-art-police-an-ongoing-fight-against-pillage-of-priceless-works">an elite police squad</a> 
+            to battle the illegal excavation of antiquities, looting of unguarded centuries-old churches, and smuggling of precious artworks.
+        </p>
+        <p>
+            In southwest Turkey, <a href="https://www.smithsonianmag.com/smart-news/33-million-of-antiquities-including-rare-
+            bronze-statue-returned-to-turkey-180981931/ ">Roman shrines in Bubon</a> were uncovered by farmers more than 50 years 
+            ago as archaeological treasure troves hosting valuable bronze statues and antiques of Roman emperors. Artifacts from 
+            archaeological sites in Turkey have been the persistent target of looting and have been circulating across the globe 
+            for decades. These antiques are slowly being returned to Turkey as the country demands restitution for its cultural works. 
+            Just this year, the Manhattan district attorney’s office conducted <a href="https://news.artnet.com/news/marcus-aurelius-
+            bronze-seized-turkey-2357047">a string of raids</a> seizing and returning looted Turkish art from American museums valued in the millions.
+        </p>
+        <h3>OBJECT TYPE</h3>
+        <p>
+            After extracting and filtering stolen art by item type in the INTERPOL <a href="https://www.interpol.int/Crimes/Cultural-
+            heritage-crime/Stolen-Works-of-Art-Database">Stolen Works of Art Database</a>, paintings and sculptures/statues totaled roughly 
+            50% of all stolen art. Entries that made up less than 1% of stolen art totals were omitted.
+        </p>
+    </div>
+    <div class="flex-row">
+        <div>
+            <img src="images/interpol-object-pie.png" alt="INTERPOL object type pie chart" width="512">
+        </div>
+        <div>
+            <img src="images/smithsonian-object-pie.png" alt="Smithsonian object type pie chart" width="512">
+        </div>
+    </div>
+    <div class="text-container">
+        <div class="summary">
+            <p>
+                <span class="highlight-yellow callout">INSIGHT</span><br/>
+                The most common types of objects stolen were <span class="bold">paintings and sculptures</span>, 
+                with paintings being disproportionately stolen.
+            </p>
+            <p class="indent">
+                <span class="highlight-blue callout">REASONING</span><br/>
+                Paintings and sculptures tend to be more well-known and valuable.
+            </p>
+        </div>
+        <p>
+            The reasoning behind this clear imbalance of paintings being disproportionately stolen was revealed upon examining the 
+            <a href="https://collections.si.edu/search/">Smithsonian Collections Database</a>, which records data on historical and cultural 
+            artwork globally. The distribution of object types in the Smithsonian database shows a similar story, in which paintings and sculptures
+            constitute the majority of artworks created and recorded to date. This explains why these object types are the most recorded stolen 
+            artworks are they tend to be the most popular, widely available, and valuable. 
+        </p>
+    </div>
+
+
+    <div class="text-container">
+        <h2>Examining US trends</h2>
+        <p>To see how the distribution of stolen art object types in the US compares to INTERPOL's global data, we turned to the FBI's 
+            <a href="https://artcrimes.fbi.gov/nsaf-view?searchText=&crimeCategory=">National Stolen Art File</a> which hosts data on stolen 
+            artworks reported to American authorities.
+        </p>
+        <h3>OBJECT TYPE (CONT)</h3>
+    </div>
+    <div class="flex-row">
+        <div class="vertical-align">
+            <img src="images/nsaf-object-bar.png" alt="National Stolen Art File object type bar chart" width="512">
+        </div>
+        <div class="side">
+            <div class="summary-side">
+                <p>
+                    <span class="highlight-yellow callout">INSIGHT</span><br/>
+                    <span class="bold">Physical art</span> has greatest theft; observational tools have least theft.
+                </p>
+                <p class="indent">
+                    <span class="highlight-blue callout">REASONING</span><br/>
+                    Physical art such as paintings usually have a greater market value. War relics and observational 
+                    tools are more niche categories, with likely fewer items or fewer reports.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="text-container">
+        <p>
+            Similar to INTERPOL's database, this database provides information on the object type of reported stolen art. These object types were 
+            grouped into larger categories for simpler analysis. 
+            From the data, we found that physical art was the most stolen art form, leading by a significant amount. Physical art includes items 
+            such as paintings, books, and print. Observational tools were the least stolen art form. It is important to note that because some of the 
+            categories provided by the dataset were so niche and contained only one item, we sorted these categories into broader umbrella categories. 
+            Observational tools for instance include items such as navigational instruments, binoculars, and telescopes. 
+        </p>
+        <p>
+            Physical art may lead in the number of artworks stolen because physical art usually has a more significant market value, making them a 
+            more lucrative target for theft. Categories such as war relics and observational tools may have less theft because they are more niche categories 
+            with possibly fewer items; additionally, this data was taken from the FBI, and less well-known items that likely lie in these categories may 
+            not have been reported. 
+        </p>
+        <h3>MATERIALS</h3>
+    </div>
+    <div class="flex-row">
+        <div class="side">
+            <div class="summary-side">
+                <p>
+                    <span class="highlight-yellow callout">INSIGHT 1</span><br/>
+                    <span class="bold">Canvas and Oil</span> were the most common materials in stolen art. This trend is mostly likely due to the 
+                    prevalence of paintings in stolen art.
+                </p>
+                <p>
+                    <span class="highlight-yellow callout">INSIGHT 2</span><br/>
+                    The <span class="bold">19th and 20th centuries</span> have a more wider array of materials which may imply that a more diverse 
+                    assortment of materials are being used in art.
+                </p>
+            </div>
+        </div>
+        <div class="vertical-align">
+            <img src="images/materials-radar.png" alt="Art materials radar chart" width="512">
+        </div>
+    </div>
+    <div class="text-container">
+        <p>
+            Similarly, we wanted to investigate any patterns in the materials of stolen artworks. Canvas and oil were the most common materials in 
+            stolen artworks reported to US police authorities, with paper and bronze being significantly less. This can be attributed to the high volume 
+            of paintings being created and stolen, as indicated in our exploration of object types earlier. This trend remains consistent throughout the 17th 
+            to 20th centuries, though the 19th and 20th centuries appear to have a more even distribution of materials used in stolen art. 
+        </p>
+        <h3>TIME PERIOD</h3>
+        <div class="horizontal-align">
+            <img src="images/time-creation-line.png" alt="Time of creation line chart" width="512">
+        </div>
+        <div class="summary">
+            <p>
+                <span class="highlight-yellow callout">INSIGHT 1</span><br/>
+                Artworks created <span class="bold">after the 15th century</span> have higher rates of reported theft.
+            </p>
+            <p class="indent">
+                <span class="highlight-blue callout">REASONING</span><br/>
+                The 15th century marks the start of the Renaissance, which saw a “rebirth” of art as new art techniques and styles were created.
+            </p>
+            <p>
+                <span class="highlight-yellow callout">INSIGHT 2</span><br/>
+                There is a peak in the volume of stolen artworks created in the <span class="bold">20th century</span>.
+            </p>
+            <p class="indent">
+                <span class="highlight-blue callout">REASONING</span><br/>
+                Better technology and tracking records could lead to more pieces of stolen art being recorded.
+            </p>
+        </div>
+        <p>
+            The line graph above shows the number of stolen art pieces by their time of creation. Stolen art that did not have a known time of creation 
+            or were created before the 1st century were excluded. Starting from a creation time of the 15th century, there appears to be an increase in the 
+            volume of reported stolen art, likely due to the style of art predominant at the time. The 15th century saw a rebirth of art techniques, known 
+            as the Renaissance, during which some of the most high-value pieces were produced. There is also a noticeable peak in the number of stolen artworks 
+            created in the 20th century, likely due to better technology, tracking, and monitoring methods that lead to more stolen art pieces being recorded.
+        </p>
+    </div>
+    <div class="flex-row">
+        <div class="vertical-align">
+            <img src="images/time-stolen-bar.png" alt="Time of theft bar chart" width="500">
+        </div>
+        <div class="side">
+            <div class="summary-side">
+                <p>
+                    <span class="highlight-yellow callout">INSIGHT</span><br/>
+                    The <span class="bold">1930s</span> (233 stolen works) sticks out when compared to the adjacent ranges.
+                </p>
+                <p class="indent">
+                    <span class="highlight-blue callout">REASONING</span><br/>
+                    Sudden uptick in stolen artwork can be attributed to the <span class="bold">Nazi plunder (Raubkunst)</span> that occurred during World War II. 
+                    Hitler was vehemently against modern art movements.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="text-container">
+        <p>
+            Zooming in on artworks created after the 1500s, the above graph further depicts the robbery of artworks based on their creation date for each decade. 
+            We see a strong increase in stolen artworks that were created in the 20th century. This can be for a multitude of reasons, including better 
+            data-keeping abilities and technology that makes it easier to track theft, but also simply an increase in the amount of art created over the years. 
+            For instance, <a href="https://www.metmuseum.org/art/collection/search">The Met’s collection</a> features over 330,000 pieces from after 1600, 
+            while less than 110,000 pieces from before the 17th century. The museum’s 20th century collection features the highest number of artworks as compared 
+            to their collections from other centuries. This implies that over time there should be a steady increase in artwork created, and thus artwork 
+            available to steal. While the graph features a generally continuous augmentation in count, the bar representing the 1930s (233 stolen works) sticks out 
+            when compared to the adjacent ranges.
+        </p>
+        <p>
+            This sudden uptick in stolen artwork can be attributed to the Nazi plunder (Raubkunst) that occurred during World War II. As Hitler was vehemently 
+            against modern art movements, when the Nazi’s spread their occupation across Europe, much of art that did not fit Hitler’s ideals was either looted 
+            or destroyed. Given that most of the war transpired in the early half of the 1940s, it makes sense that there would be a significant increase in stolen 
+            art that was created just before this period, as it was these pieces that featured modern elements that went against Hitler’s artistic beliefs (as 
+            compared to older, traditional pieces). 
+        </p>
+    </div>
+
+
+    <div class="text-container">
+        <h2>Understanding historical context</h2>
+        <p>
+            Looking within the FBI database, the history of Paul Klee’s 1932 painting, Initial Landscape (German: Initial Landschaft) can also provide specific 
+            insight into the abnormal 1930-39 data.
+        </p>
+        <figure class="horizontal-align">
+            <img src="images/initial-landscape.png" alt="Initial Landscape by Paul Klee" width="512">
+            <figcaption>
+                <span class="italic">Initial Landscape (Initial Landschaft), 1932<br/>
+                Gouache on paper mounted on board, (21 x 32.8 cm.)</span>
+            </figcaption>
+        </figure>
+        <p>
+            <a href="https://en.wikipedia.org/wiki/Paul_Klee">Paul Klee</a> was a German artist who was influenced by 
+            the expressionist, cubist, and surrealist movements, all of which went against Hitler’s artistic ideals. Though born in Switzerland, Klee spent much of 
+            his artistic career in Germany, including teaching at Dusseldorf Academy, a fine-arts school. However, when Hitler came to power, as a modern artist, 
+            Klee was dismissed from his position at the Academy in 1933, and both his house and studio were <a href="https://www.britannica.com/biography/Paul-Klee/
+            Artistic-maturity">raided by the Gestapo</a>. Furthermore, a 1937 Munich show featuring Hitler’s proclaimed “degenerate art” featured 
+            <a href="https://books.google.com/books/about/Paul_Klee_1879_1940.html?id=Xf_rTgEACAAJ">17 stolen artworks from Klee</a>, and in that same year, 102 
+            of his works in public collections in Germany were seized. While there is no evidence of Klee’s Initial Landscape being stolen by Nazis, its fitting year 
+            of creation accompanied by the history of Klee’s art provides a strong reason for Hitler’s regime to be the reason why it (among other pieces from this 
+            time) were stolen. 
+        </p>
+        <p>
+            This line of reasoning goes beyond solely German artists, as on May 27, 1943, “degenerate” paintings by the aforementioned Klee, but also by Pablo 
+            Picasso (Spaniard) and Fernand Léger (French), were <a href="https://books.google.com/books/about/Let_s_Go_Paris_15th_Edition.html?id=tn1Tco6aq8MC">
+            destroyed by Nazis</a> in a bonfire in the garden of the Jeu de Paume. With this history in mind, the works of Picasso and Leger that are found 
+            within the FBI’s list of 1930s stolen paintings are recontextualized, implying evidence of the Nazi regime’s global influence on stolen art, and ultimately 
+            providing reasoning for the sudden increase in stolen 30s art. However, with limited documentation of the possession history of these pieces, like the 
+            art itself, much of these implications are read between the lines.
+        </p>
+        <p> 
+            Stories like these demonstrate the importance of art in telling the stories of historical events and global cultures, and it's through data that we can 
+            begin to paint the full picture.
+        </p>
+    </div>
+
+    <br/>
+
+    <footer>
+        <p>Visit our github repo <a href="https://github.coecis.cornell.edu/ac2493/cdj-stolen-art-project">here</a>.</p>
+    </footer>
+
+
+    <script type="text/javascript" src="scripts/map.js"></script>
+    <script type="text/javascript" src="scripts/table.js"></script>
+</body>
+</html>
