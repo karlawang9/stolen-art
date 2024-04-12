@@ -3,7 +3,7 @@ var tbody = table.append("tbody");
 
 const requestTableData = async function() {
 
-    const artData = await d3.csv("../data/interpol_country_data.csv"); // no autotype, need country codes as strings
+    const artData = await d3.csv("interpol_country_data.csv"); // no autotype, need country codes as strings
     artData.forEach( (d, i) => {
         d.total = Number(d.total); // now convert totals to numeric data
     });
